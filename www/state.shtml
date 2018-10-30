@@ -1,0 +1,4 @@
+{
+	"systick": <!--#systick-->,
+	"user": { "a": <!--#alpha-->, "b": <!--#bravo-->, "c": <!--#charlie--> }
+}

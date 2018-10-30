@@ -1,0 +1,4 @@
+*.bak
+./ide/Rowley/D21ecm THUMB Debug/*
+./ide/Rowley/D21ecm THUMB Release/*
+*.hzs

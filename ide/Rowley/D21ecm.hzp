@@ -1,0 +1,144 @@
+<!DOCTYPE CrossStudio_Project_File>
+<solution Name="D21ecm" target="8" version="2">
+  <project Name="D21ecm">
+    <configuration
+      CMSIS_CORE="Yes"
+      Name="Common"
+      Placement="Flash"
+      Target="ATSAMD21J18A"
+      arm_architecture="v6M"
+      arm_core_type="Cortex-M0+"
+      arm_endian="Little"
+      arm_fpu_type="None"
+      arm_interwork="No"
+      arm_linker_heap_size="256"
+      arm_linker_process_stack_size="0"
+      arm_linker_stack_size="1024"
+      arm_simulator_memory_simulation_filename="$(TargetsDir)/SAM_D/Simulator/SAM_D_SimulatorMemory_$(HostOS)_$(HostArch)$(HostDLLExt)"
+      arm_simulator_memory_simulation_parameter="SAM D,SAM D21;FLASH,0x00000000,0x00040000,ROM;RAM,0x20000000,0x00008000,RAM"
+      arm_target_debug_interface_type="ADIv5"
+      arm_target_device_name="ATSAMD21J18A"
+      arm_target_interface_type="SWD"
+      arm_target_loader_applicable_loaders="Flash"
+      arm_target_loader_default_loader="Flash"
+      c_preprocessor_definitions="LWIP_HTTPD_STRNSTR_PRIVATE=0"
+      c_user_include_directories="$(DeviceIncludePath);$(TargetsDir)/SAM_D/CMSIS/Device/Include;../../project;../../usb;../../lwip-1.4.1/src/include;../../lwip-1.4.1/src/include/ipv4;../../rndis-stm32;../../dhcp-server;../../dns-server;../../lwip-1.4.1/apps/httpserver_raw;../../project/shim"
+      debug_register_definition_file="$(DeviceRegisterDefinitionFile)"
+      gcc_entry_point="Reset_Handler"
+      linker_memory_map_file="$(DeviceMemoryMapFile)"
+      linker_section_placement_file="$(StudioDir)/targets/Cortex_M/flash_placement.xml"
+      macros="DeviceIncludePath=$(TargetsDir)/SAM_D/CMSIS/Device/SAMD21/Include;DeviceHeaderFile=$(TargetsDir)/SAM_D/CMSIS/Device/SAMD21/Include/samd21.h;DeviceLoaderFile=$(TargetsDir)/SAM_D/Loader/SAM_D21_Loader.elf;DeviceMemoryMapFile=$(TargetsDir)/SAM_D/XML/ATSAMD21J18A_MemoryMap.xml;DeviceRegisterDefinitionFile=$(TargetsDir)/SAM_D/XML/ATSAMD21J18A_Registers.xml;DeviceSystemFile=$(TargetsDir)/SAM_D/CMSIS/Device/SAMD21/Source/system_samd21.c;DeviceVectorsFile=$(TargetsDir)/SAM_D/Source/ATSAMD21J18A_Vectors.s;DeviceFamily=SAM D;DeviceSubFamily=SAM D21"
+      package_dependencies="Atmel_ATSAMD21-XPRO"
+      project_directory=""
+      project_type="Executable"
+      property_groups_file_path="$(TargetsDir)/SAM_D/XML/property_groups.xml"
+      target_get_partname_script="GetPartName()"
+      target_match_partname_script="MatchPartName(&quot;$(Target)&quot;)"
+      target_reset_script="Reset();"
+      target_trace_initialize_script="EnableTrace(&quot;$(TraceInterfaceType)&quot;)" />
+    <configuration
+      Name="Flash"
+      arm_target_flash_loader_file_path="$(DeviceLoaderFile)" />
+    <folder Name="CMSIS Files">
+      <file file_name="$(DeviceHeaderFile)" />
+      <file file_name="$(DeviceSystemFile)">
+        <configuration
+          Name="Common"
+          default_code_section=".init"
+          default_const_section=".init_rodata" />
+      </file>
+    </folder>
+    <folder Name="Script Files">
+      <file file_name="$(TargetsDir)/SAM_D/Scripts/SAM_D_Target.js">
+        <configuration Name="Common" file_type="Reset Script" />
+      </file>
+    </folder>
+    <folder Name="Source Files">
+      <configuration Name="Common" filter="c;cpp;cxx;cc;h;s;asm;inc" />
+    </folder>
+    <folder Name="System Files">
+      <file file_name="$(StudioDir)/source/thumb_crt0.s" />
+      <file file_name="$(TargetsDir)/SAM_D/Source/SAM_D_Startup.s" />
+      <file file_name="$(DeviceVectorsFile)">
+        <configuration Name="Common" file_type="Assembly" />
+      </file>
+    </folder>
+    <folder Name="lwip">
+      <file file_name="../../lwip-1.4.1/src/include/lwipopts.h" />
+      <file file_name="../../lwip-1.4.1/src/core/def.c" />
+      <file file_name="../../lwip-1.4.1/src/core/dhcp.c" />
+      <file file_name="../../lwip-1.4.1/src/core/dns.c" />
+      <file file_name="../../lwip-1.4.1/src/core/init.c" />
+      <file file_name="../../lwip-1.4.1/src/core/mem.c" />
+      <file file_name="../../lwip-1.4.1/src/core/memp.c" />
+      <file file_name="../../lwip-1.4.1/src/core/netif.c" />
+      <file file_name="../../lwip-1.4.1/src/core/pbuf.c" />
+      <file file_name="../../lwip-1.4.1/src/core/raw.c" />
+      <file file_name="../../lwip-1.4.1/src/core/stats.c" />
+      <file file_name="../../lwip-1.4.1/src/core/sys.c" />
+      <file file_name="../../lwip-1.4.1/src/core/tcp.c" />
+      <file file_name="../../lwip-1.4.1/src/core/tcp_in.c" />
+      <file file_name="../../lwip-1.4.1/src/core/tcp_out.c" />
+      <file file_name="../../lwip-1.4.1/src/core/timers.c" />
+      <file file_name="../../lwip-1.4.1/src/core/udp.c" />
+      <file file_name="../../lwip-1.4.1/src/core/ipv4/autoip.c" />
+      <file file_name="../../lwip-1.4.1/src/core/ipv4/icmp.c" />
+      <file file_name="../../lwip-1.4.1/src/core/ipv4/igmp.c" />
+      <file file_name="../../lwip-1.4.1/src/core/ipv4/inet.c" />
+      <file file_name="../../lwip-1.4.1/src/core/ipv4/inet_chksum.c" />
+      <file file_name="../../lwip-1.4.1/src/core/ipv4/ip.c" />
+      <file file_name="../../lwip-1.4.1/src/core/ipv4/ip_addr.c" />
+      <file file_name="../../lwip-1.4.1/src/core/ipv4/ip_frag.c" />
+      <file file_name="../../lwip-1.4.1/src/netif/etharp.c" />
+      <file file_name="../../lwip-1.4.1/src/netif/ethernetif.c" />
+      <file file_name="../../lwip-1.4.1/src/netif/slipif.c" />
+    </folder>
+    <folder Name="dhcp">
+      <file file_name="../../dhcp-server/dhserver.c" />
+      <file file_name="../../dhcp-server/dhserver.h" />
+    </folder>
+    <folder Name="dns">
+      <file file_name="../../dns-server/dnserver.c" />
+      <file file_name="../../dns-server/dnserver.h" />
+    </folder>
+    <folder Name="http">
+      <file file_name="../../lwip-1.4.1/apps/httpserver_raw/fs.c" />
+      <file file_name="../../lwip-1.4.1/apps/httpserver_raw/httpd.c" />
+    </folder>
+    <folder Name="project">
+      <file file_name="../../project/app.c" />
+      <file file_name="../../project/time.c" />
+    </folder>
+    <folder Name="usb">
+      <file file_name="../../usb/usb.c" />
+      <file file_name="../../usb/usb_descriptors.c" />
+      <file file_name="../../usb/usb_ecm.c" />
+      <file file_name="../../usb/usb_std.c" />
+    </folder>
+  </project>
+  <configuration Name="THUMB Debug" inherited_configurations="THUMB;Debug" />
+  <configuration
+    Name="THUMB"
+    Platform="ARM"
+    arm_instruction_set="Thumb"
+    arm_library_instruction_set="Thumb"
+    c_preprocessor_definitions="__THUMB"
+    hidden="Yes" />
+  <configuration
+    Name="Debug"
+    c_preprocessor_definitions="DEBUG"
+    gcc_debugging_level="Level 3"
+    gcc_omit_frame_pointer="Yes"
+    gcc_optimization_level="None"
+    hidden="Yes" />
+  <configuration
+    Name="THUMB Release"
+    inherited_configurations="THUMB;Release" />
+  <configuration
+    Name="Release"
+    c_preprocessor_definitions="NDEBUG"
+    gcc_debugging_level="None"
+    gcc_omit_frame_pointer="Yes"
+    gcc_optimization_level="Level 1"
+    hidden="Yes" />
+</solution>
