@@ -1,8 +1,4 @@
 /*
-modified by doubling size of usb_ctrl_out_buf
-*/
-
-/*
  * Copyright (c) 2016-2017, Alex Taradov <alex@taradov.com>
  * All rights reserved.
  *
@@ -82,7 +78,7 @@ typedef union
 /*- Variables ---------------------------------------------------------------*/
 static alignas(4) udc_mem_t udc_mem[USB_EPT_NUM];
 static alignas(4) uint8_t usb_ctrl_in_buf[64];
-static alignas(4) uint8_t usb_ctrl_out_buf[128];
+static alignas(4) uint8_t usb_ctrl_out_buf[64];
 static void (*usb_control_recv_callback)(uint8_t *data, int size);
 
 /*- Implementations ---------------------------------------------------------*/
@@ -368,7 +364,7 @@ void usb_task(void)
 
     udc_mem[0].out.ADDR.reg = (uint32_t)usb_ctrl_out_buf;
     udc_mem[0].out.PCKSIZE.bit.SIZE = USB_DEVICE_PCKSIZE_SIZE_64;
-    udc_mem[0].out.PCKSIZE.bit.MULTI_PACKET_SIZE = sizeof(usb_ctrl_out_buf);
+    udc_mem[0].out.PCKSIZE.bit.MULTI_PACKET_SIZE = 64;
     udc_mem[0].out.PCKSIZE.bit.BYTE_COUNT = 0;
 
     USB->DEVICE.DeviceEndpoint[0].EPINTENSET.bit.RXSTP = 1;
