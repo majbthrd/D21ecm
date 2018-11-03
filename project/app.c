@@ -132,6 +132,9 @@ static void sys_init(void)
 
 void usb_ecm_recv_callback(const uint8_t *data, int size)
 {
+  if (received_frame)
+    return;
+
   received_frame = pbuf_alloc(PBUF_RAW, size, PBUF_POOL);
   if (!received_frame) 
     return;
@@ -157,9 +160,7 @@ err_t output_fn(struct netif *netif, struct pbuf *p, ip_addr_t *ipaddr)
 
 err_t linkoutput_fn(struct netif *netif, struct pbuf *p)
 {
-    int i;
-
-    for (i = 0; i < 200; i++)
+    for (;;)
     {
         if (usb_ecm_can_xmit()) goto ok_to_xmit;
         usb_task();
@@ -176,7 +177,7 @@ ok_to_xmit:
 err_t netif_init_cb(struct netif *netif)
 {
     LWIP_ASSERT("netif != NULL", (netif != NULL));
-    netif->mtu = ECM_MAX_SEGMENT_SIZE;
+    netif->mtu = ECM_MTU;
     netif->flags = NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_LINK_UP | NETIF_FLAG_UP;
     netif->state = NULL;
     netif->name[0] = 'E';
@@ -212,7 +213,7 @@ static void init_periph(void)
 
 bool dns_query_proc(const char *name, ip_addr_t *addr)
 {
-    if (strcmp(name, "run.stm") == 0 || strcmp(name, "www.run.stm") == 0)
+    if (strcmp(name, "run.sam") == 0 || strcmp(name, "www.run.sam") == 0)
     {
         addr->addr = *(uint32_t *)ipaddr;
         return true;

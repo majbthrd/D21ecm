@@ -31,6 +31,9 @@
 #include "usb_std.h"
 #include "netif/etharp.h"
 
+#define ETH_HEADER_SIZE             14
+#define ECM_MTU                     (ECM_MAX_SEGMENT_SIZE - ETH_HEADER_SIZE)
+
 void usb_ecm_init(void);
 
 void usb_ecm_recv_callback(const uint8_t *data, int size);
