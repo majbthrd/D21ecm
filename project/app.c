@@ -55,8 +55,8 @@
 #include "lwip/api.h"
 #include "lwip/inet.h"
 #include "lwip/dns.h"
-#include "lwip/tcp_impl.h"
 #include "lwip/tcp.h"
+#include "lwip/sys.h"
 #include "time.h"
 #include "httpd.h"
 #include "ecmhelper.h"
@@ -85,7 +85,7 @@ static dhcp_config_t dhcp_config =
     entries               /* entries */
 };
 
-static void sys_init(void)
+static void device_init(void)
 {
   uint32_t sn = 0;
 
@@ -172,6 +172,8 @@ static void sys_init(void)
     usb_serial_number[4 + i] = "0123456789ABCDEF"[(sn >> (i * 4)) & 0xf];
 
   usb_serial_number[12] = 0;
+
+  time_init();
 }
 
 void usb_ecm_recv_callback(const uint8_t *data, int size)
@@ -185,16 +187,6 @@ void usb_ecm_recv_callback(const uint8_t *data, int size)
 
   memcpy(received_frame->payload, data, size);
   received_frame->len = size;
-}
-
-uint32_t sys_now()
-{
-    return (uint32_t)mtime();
-}
-
-TIMER_PROC(tcp_timer, TCP_TMR_INTERVAL, 1, NULL)
-{
-    tcp_tmr();
 }
 
 err_t output_fn(struct netif *netif, struct pbuf *p, ip_addr_t *ipaddr)
@@ -243,14 +235,11 @@ void init_lwip()
 
     netif = netif_add(netif, PADDR(ipaddr), PADDR(netmask), PADDR(gateway), NULL, netif_init_cb, ip_input);
     netif_set_default(netif);
-
-    stmr_add(&tcp_timer);
 }
 
 static void init_periph(void)
 {
-  sys_init();
-  time_init();
+  device_init();
   usb_init();
   usb_ecm_init();
 }
@@ -310,7 +299,7 @@ static u16_t ssi_handler(int index, char *insert, int ins_len)
     switch (index)
     {
     case 0: /* systick */
-        res = snprintf(insert, ins_len, "%u", (unsigned)mtime());
+        res = snprintf(insert, ins_len, "%u", sys_now());
         break;
     case 1: /* alpha */
         *insert = '0' + (alpha & 1);
@@ -359,9 +348,11 @@ int main(void)
   while (1)
   {
     usb_task();
-    stmr();
     service_traffic();
   }
 
   return 0;
 }
+
+sys_prot_t sys_arch_protect(void) {}
+void sys_arch_unprotect(sys_prot_t pval) {}

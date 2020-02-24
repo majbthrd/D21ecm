@@ -21,8 +21,8 @@
       arm_target_interface_type="SWD"
       arm_target_loader_applicable_loaders="Flash"
       arm_target_loader_default_loader="Flash"
-      c_preprocessor_definitions="LWIP_HTTPD_STRNSTR_PRIVATE=0"
-      c_user_include_directories="$(DeviceIncludePath);$(TargetsDir)/SAM_D/CMSIS/Device/Include;../../project;../../usb;../../lwip-1.4.1/src/include;../../lwip-1.4.1/src/include/ipv4;../../rndis-stm32;../../dhcp-server;../../dns-server;../../lwip-1.4.1/apps/httpserver_raw;../../project/shim"
+      c_preprocessor_definitions="LWIP_HTTPD_STRNSTR_PRIVATE=0;PBUF_POOL_SIZE=2;TCP_WND=(2*TCP_MSS)"
+      c_user_include_directories="$(DeviceIncludePath);$(TargetsDir)/SAM_D/CMSIS/Device/Include;../../project;../../usb;../../lwip-2.1.2/src/include;../../lwip-2.1.2/src/include/ipv4;../../rndis-stm32;../../dhcp-server;../../dns-server;../../lwip-1.4.1/apps/httpserver_raw;../../project/shim"
       debug_register_definition_file="$(DeviceRegisterDefinitionFile)"
       gcc_entry_point="Reset_Handler"
       linker_memory_map_file="$(DeviceMemoryMapFile)"
@@ -64,34 +64,37 @@
       </file>
     </folder>
     <folder Name="lwip">
-      <file file_name="../../lwip-1.4.1/src/include/lwipopts.h" />
-      <file file_name="../../lwip-1.4.1/src/core/def.c" />
-      <file file_name="../../lwip-1.4.1/src/core/dhcp.c" />
-      <file file_name="../../lwip-1.4.1/src/core/dns.c" />
-      <file file_name="../../lwip-1.4.1/src/core/init.c" />
-      <file file_name="../../lwip-1.4.1/src/core/mem.c" />
-      <file file_name="../../lwip-1.4.1/src/core/memp.c" />
-      <file file_name="../../lwip-1.4.1/src/core/netif.c" />
-      <file file_name="../../lwip-1.4.1/src/core/pbuf.c" />
-      <file file_name="../../lwip-1.4.1/src/core/raw.c" />
-      <file file_name="../../lwip-1.4.1/src/core/stats.c" />
-      <file file_name="../../lwip-1.4.1/src/core/sys.c" />
-      <file file_name="../../lwip-1.4.1/src/core/tcp.c" />
-      <file file_name="../../lwip-1.4.1/src/core/tcp_in.c" />
-      <file file_name="../../lwip-1.4.1/src/core/tcp_out.c" />
-      <file file_name="../../lwip-1.4.1/src/core/timers.c" />
-      <file file_name="../../lwip-1.4.1/src/core/udp.c" />
-      <file file_name="../../lwip-1.4.1/src/core/ipv4/autoip.c" />
-      <file file_name="../../lwip-1.4.1/src/core/ipv4/icmp.c" />
-      <file file_name="../../lwip-1.4.1/src/core/ipv4/igmp.c" />
-      <file file_name="../../lwip-1.4.1/src/core/ipv4/inet.c" />
-      <file file_name="../../lwip-1.4.1/src/core/ipv4/inet_chksum.c" />
-      <file file_name="../../lwip-1.4.1/src/core/ipv4/ip.c" />
-      <file file_name="../../lwip-1.4.1/src/core/ipv4/ip_addr.c" />
-      <file file_name="../../lwip-1.4.1/src/core/ipv4/ip_frag.c" />
-      <file file_name="../../lwip-1.4.1/src/netif/etharp.c" />
-      <file file_name="../../lwip-1.4.1/src/netif/ethernetif.c" />
-      <file file_name="../../lwip-1.4.1/src/netif/slipif.c" />
+      <file file_name="../../project/shim/lwipopts.h" />
+      <file file_name="../../lwip-2.1.2/src/core/altcp.c" />
+      <file file_name="../../lwip-2.1.2/src/core/altcp_alloc.c" />
+      <file file_name="../../lwip-2.1.2/src/core/altcp_tcp.c" />
+      <file file_name="../../lwip-2.1.2/src/core/def.c" />
+      <file file_name="../../lwip-2.1.2/src/core/dns.c" />
+      <file file_name="../../lwip-2.1.2/src/core/inet_chksum.c" />
+      <file file_name="../../lwip-2.1.2/src/core/init.c" />
+      <file file_name="../../lwip-2.1.2/src/core/ip.c" />
+      <file file_name="../../lwip-2.1.2/src/core/mem.c" />
+      <file file_name="../../lwip-2.1.2/src/core/memp.c" />
+      <file file_name="../../lwip-2.1.2/src/core/netif.c" />
+      <file file_name="../../lwip-2.1.2/src/core/pbuf.c" />
+      <file file_name="../../lwip-2.1.2/src/core/raw.c" />
+      <file file_name="../../lwip-2.1.2/src/core/stats.c" />
+      <file file_name="../../lwip-2.1.2/src/core/sys.c" />
+      <file file_name="../../lwip-2.1.2/src/core/tcp.c" />
+      <file file_name="../../lwip-2.1.2/src/core/tcp_in.c" />
+      <file file_name="../../lwip-2.1.2/src/core/tcp_out.c" />
+      <file file_name="../../lwip-2.1.2/src/core/timeouts.c" />
+      <file file_name="../../lwip-2.1.2/src/core/udp.c" />
+      <file file_name="../../lwip-2.1.2/src/core/ipv4/autoip.c" />
+      <file file_name="../../lwip-2.1.2/src/core/ipv4/dhcp.c" />
+      <file file_name="../../lwip-2.1.2/src/core/ipv4/etharp.c" />
+      <file file_name="../../lwip-2.1.2/src/core/ipv4/icmp.c" />
+      <file file_name="../../lwip-2.1.2/src/core/ipv4/igmp.c" />
+      <file file_name="../../lwip-2.1.2/src/core/ipv4/ip4.c" />
+      <file file_name="../../lwip-2.1.2/src/core/ipv4/ip4_addr.c" />
+      <file file_name="../../lwip-2.1.2/src/core/ipv4/ip4_frag.c" />
+      <file file_name="../../lwip-2.1.2/src/netif/ethernet.c" />
+      <file file_name="../../lwip-2.1.2/src/netif/slipif.c" />
     </folder>
     <folder Name="dhcp">
       <file file_name="../../dhcp-server/dhserver.c" />
