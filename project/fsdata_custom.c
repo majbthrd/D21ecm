@@ -1,6 +1,5 @@
 #include "fs.h"
 #include "lwip/def.h"
-#include "fsdata.h"
 
 
 #define file_NULL (struct fsdata_file *) NULL

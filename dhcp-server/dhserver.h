@@ -57,7 +57,7 @@ typedef struct dhcp_config
 	dhcp_entry_t *entries;
 } dhcp_config_t;
 
-err_t dhserv_init(dhcp_config_t *config);
+err_t dhserv_init(const dhcp_config_t *config);
 void dhserv_free(void);
 
 #endif /* DHSERVER_H */

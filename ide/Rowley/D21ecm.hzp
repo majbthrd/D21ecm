@@ -21,8 +21,8 @@
       arm_target_interface_type="SWD"
       arm_target_loader_applicable_loaders="Flash"
       arm_target_loader_default_loader="Flash"
-      c_preprocessor_definitions="LWIP_HTTPD_STRNSTR_PRIVATE=0;PBUF_POOL_SIZE=2;TCP_WND=(2*TCP_MSS)"
-      c_user_include_directories="$(DeviceIncludePath);$(TargetsDir)/SAM_D/CMSIS/Device/Include;../../project;../../usb;../../lwip-2.1.2/src/include;../../lwip-2.1.2/src/include/ipv4;../../rndis-stm32;../../dhcp-server;../../dns-server;../../lwip-1.4.1/apps/httpserver_raw;../../project/shim"
+      c_preprocessor_definitions="PBUF_POOL_SIZE=2;TCP_WND=(2*TCP_MSS);HTTPD_USE_CUSTOM_FSDATA=0"
+      c_user_include_directories="$(DeviceIncludePath);$(TargetsDir)/SAM_D/CMSIS/Device/Include;../../project;../../usb;../../lwip-2.1.2/src/include;../../lwip-2.1.2/src/include/ipv4;../../rndis-stm32;../../dhcp-server;../../dns-server;../../lwip-2.1.2/src/include/lwip/apps;../../project/shim"
       debug_register_definition_file="$(DeviceRegisterDefinitionFile)"
       gcc_entry_point="Reset_Handler"
       linker_memory_map_file="$(DeviceMemoryMapFile)"
@@ -105,8 +105,8 @@
       <file file_name="../../dns-server/dnserver.h" />
     </folder>
     <folder Name="http">
-      <file file_name="../../lwip-1.4.1/apps/httpserver_raw/fs.c" />
-      <file file_name="../../lwip-1.4.1/apps/httpserver_raw/httpd.c" />
+      <file file_name="../../lwip-2.1.2/src/apps/http/fs.c" />
+      <file file_name="../../lwip-2.1.2/src/apps/http/httpd.c" />
     </folder>
     <folder Name="project">
       <file file_name="../../project/app.c" />

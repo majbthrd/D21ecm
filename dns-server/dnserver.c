@@ -130,7 +130,7 @@ static int parse_next_query(void *data, int size, dns_query_t *query)
 	return ptr - (uint8_t *)data;
 }
 
-static void udp_recv_proc(void *arg, struct udp_pcb *upcb, struct pbuf *p, struct ip_addr *addr, u16_t port)
+static void udp_recv_proc(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port)
 {
 	int len;
 	dns_header_t *header;

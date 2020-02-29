@@ -92,7 +92,7 @@ typedef struct
 
 DHCP_TYPE dhcp_data;
 static struct udp_pcb *pcb = NULL;
-static dhcp_config_t *config = NULL;
+static const dhcp_config_t *config = NULL;
 
 char magic_cookie[] = {0x63,0x82,0x53,0x63};
 
@@ -227,7 +227,7 @@ int fill_options(void *dest,
 	return ptr - (uint8_t *)dest;
 }
 
-static void udp_recv_proc(void *arg, struct udp_pcb *upcb, struct pbuf *p, struct ip_addr *addr, u16_t port)
+static void udp_recv_proc(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port)
 {
 	uint8_t *ptr;
 	dhcp_entry_t *entry;
@@ -317,7 +317,7 @@ static void udp_recv_proc(void *arg, struct udp_pcb *upcb, struct pbuf *p, struc
 	pbuf_free(p);
 }
 
-err_t dhserv_init(dhcp_config_t *c)
+err_t dhserv_init(const dhcp_config_t *c)
 {
 	err_t err;
 	udp_init();
