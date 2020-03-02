@@ -233,7 +233,10 @@ static void udp_recv_proc(void *arg, struct udp_pcb *upcb, struct pbuf *p, const
 	dhcp_entry_t *entry;
 	struct pbuf *pp;
 
-	int n = p->len;
+	(void)arg;
+	(void)addr;
+
+	unsigned n = p->len;
 	if (n > sizeof(dhcp_data)) n = sizeof(dhcp_data);
 	memcpy(&dhcp_data, p->payload, n);
 	switch (dhcp_data.dp_options[2])

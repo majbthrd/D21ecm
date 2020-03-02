@@ -139,6 +139,8 @@ static void udp_recv_proc(void *arg, struct udp_pcb *upcb, struct pbuf *p, const
 	ip_addr_t host_addr;
 	dns_answer_t *answer;
 
+	(void)arg;
+
 	if (p->len <= sizeof(dns_header_t)) goto error;
 	header = (dns_header_t *)p->payload;
 	if (header->flags.qr != 0) goto error;
@@ -171,7 +173,7 @@ error:
 	pbuf_free(p);
 }
 
-err_t dnserv_init(ip_addr_t *bind, uint16_t port, dns_query_proc_t qp)
+err_t dnserv_init(const ip_addr_t *bind, uint16_t port, dns_query_proc_t qp)
 {
 	err_t err;
 	udp_init();

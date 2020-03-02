@@ -11,7 +11,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2018 Peter Lawrence
+ * Copyright (c) 2018,2020 Peter Lawrence
  * Copyright (c) 2015 by Sergey Fetisov <fsenok@gmail.com>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -63,9 +63,9 @@
 
 static struct netif netif_data;
 static const uint8_t hwaddr[6]  = {0x20,0x89,0x84,0x6A,0x96,0x00};
-static const uint8_t ipaddr[4]  = {192, 168, 7, 1};
-static const uint8_t netmask[4] = {255, 255, 255, 0};
-static const uint8_t gateway[4] = {0, 0, 0, 0};
+static const ip_addr_t ipaddr  = IPADDR4_INIT_BYTES(192, 168, 7, 1);
+static const ip_addr_t netmask = IPADDR4_INIT_BYTES(255, 255, 255, 0);
+static const ip_addr_t gateway = IPADDR4_INIT_BYTES(0, 0, 0, 0);
 static struct pbuf *received_frame;
 
 static dhcp_entry_t entries[] =
@@ -223,8 +223,6 @@ err_t netif_init_cb(struct netif *netif)
     return ERR_OK;
 }
 
-#define PADDR(ptr) ((ip_addr_t *)ptr)
-
 void init_lwip()
 {
     struct netif  *netif = &netif_data;
@@ -233,7 +231,7 @@ void init_lwip()
     netif->hwaddr_len = 6;
     memcpy(netif->hwaddr, hwaddr, 6);
 
-    netif = netif_add(netif, PADDR(ipaddr), PADDR(netmask), PADDR(gateway), NULL, netif_init_cb, ip_input);
+    netif = netif_add(netif, &ipaddr, &netmask, &gateway, NULL, netif_init_cb, ip_input);
     netif_set_default(netif);
 }
 
@@ -248,7 +246,7 @@ bool dns_query_proc(const char *name, ip_addr_t *addr)
 {
     if (strcmp(name, "run.sam") == 0 || strcmp(name, "www.run.sam") == 0)
     {
-        addr->addr = *(uint32_t *)ipaddr;
+        *addr = ipaddr;
         return true;
     }
     return false;
@@ -339,7 +337,7 @@ int main(void)
 
   while (dhserv_init(&dhcp_config) != ERR_OK);
 
-  while (dnserv_init(PADDR(ipaddr), 53, dns_query_proc) != ERR_OK);
+  while (dnserv_init(&ipaddr, 53, dns_query_proc) != ERR_OK);
 
   http_set_cgi_handlers(cgi_uri_table, sizeof(cgi_uri_table) / sizeof(tCGI));
   http_set_ssi_handler(ssi_handler, ssi_tags_table, sizeof(ssi_tags_table) / sizeof(char *));
@@ -354,5 +352,12 @@ int main(void)
   return 0;
 }
 
-sys_prot_t sys_arch_protect(void) {}
-void sys_arch_unprotect(sys_prot_t pval) {}
+/* lwip has provision for using a mutex, when applicable */
+sys_prot_t sys_arch_protect(void)
+{
+  return 0;
+}
+void sys_arch_unprotect(sys_prot_t pval)
+{
+  (void)pval;
+}
