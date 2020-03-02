@@ -21,7 +21,7 @@
       arm_target_interface_type="SWD"
       arm_target_loader_applicable_loaders="Flash"
       arm_target_loader_default_loader="Flash"
-      c_preprocessor_definitions="PBUF_POOL_SIZE=2;TCP_WND=(2*TCP_MSS);HTTPD_USE_CUSTOM_FSDATA=0"
+      c_preprocessor_definitions="PBUF_POOL_SIZE=2;TCP_WND=(2*TCP_MSS);HTTPD_USE_CUSTOM_FSDATA=1"
       c_user_include_directories="$(DeviceIncludePath);$(TargetsDir)/SAM_D/CMSIS/Device/Include;../../project;../../usb;../../lwip-2.1.2/src/include;../../lwip-2.1.2/src/include/ipv4;../../rndis-stm32;../../dhcp-server;../../dns-server;../../lwip-2.1.2/src/include/lwip/apps;../../project/shim"
       debug_register_definition_file="$(DeviceRegisterDefinitionFile)"
       gcc_entry_point="Reset_Handler"
