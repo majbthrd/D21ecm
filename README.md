@@ -5,7 +5,7 @@ Inspired by [lrndis](https://github.com/fetisov/lrndis), this is a CDC-ECM imple
 
 As with [lrndis](https://github.com/fetisov/lrndis), [lwIP](https://savannah.nongnu.org/projects/lwip/) is utilized to provide a rudimentary TCP/IP stack, DHCP server, and web server. 
 
-This is closely related to [D21rndis](https://github.com/majbthrd/D21rndis/), a RNDIS implementation with which it shares most of the same code.
+This is closely related to [D21rndis](https://github.com/majbthrd/D21rndis/), a RNDIS implementation, and [D21eem](https://github.com/majbthrd/D21ecm/), a CDC-EEM implementation.  All implementations share most of the same code, differing only in the driver. with which it shares most of the same code.
 
 ## Usage
 

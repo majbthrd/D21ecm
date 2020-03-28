@@ -33,6 +33,13 @@
 
 static alignas(4) uint8_t received[ECM_MAX_SEGMENT_SIZE];
 static alignas(4) uint8_t transmitted[ECM_MAX_SEGMENT_SIZE];
+static alignas(4) usb_request_t notify = 
+{
+  .bmRequestType = 0x21,
+  .bRequest = 0 /* NETWORK_CONNECTION */,
+  .wValue = 1 /* Connected */,
+  .wLength = 0,
+};
 
 static bool can_xmit;
 
@@ -79,6 +86,21 @@ static void usb_ecm_ep_recv_callback(int size)
 bool usb_class_handle_request(usb_request_t *request)
 {
   int length = request->wLength;
+
+  if (0x20 /* CLASS */ != request->bmRequestType & 0x60)
+    return false;
+
+  /* the only required CDC-ECM Management Element Request is SetEthernetPacketFilter */
+
+  if (0x43 /* SET_ETHERNET_PACKET_FILTER */ == request->bRequest)
+  {
+    usb_control_send_zlp();
+
+    /* provide a Management Element Notification (with a NETWORK_CONNECTION status) */
+    notify.wIndex = request->wIndex;
+    usb_send(USB_ECM_EP_COMM, (uint8_t *)&notify, sizeof(notify));
+    return true;
+  }
 
   return false;
 }
