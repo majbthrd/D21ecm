@@ -57,6 +57,7 @@
 #include "lwip/dns.h"
 #include "lwip/tcp.h"
 #include "lwip/sys.h"
+#include "lwip/timeouts.h"
 #include "time.h"
 #include "httpd.h"
 #include "ecmhelper.h"
@@ -325,6 +326,8 @@ static void service_traffic(void)
     received_frame = NULL;
     usb_ecm_recv_renew();
   }
+
+  sys_check_timeouts();
 }
 
 int main(void)
