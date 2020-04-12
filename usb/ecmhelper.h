@@ -31,7 +31,7 @@
 #define USB_FS_MAX_PACKET_SIZE   64
 
 #define ECM_MAX_USB_DATA_PACKET_SIZE   USB_FS_MAX_PACKET_SIZE
-#define ECM_MAX_USB_NOTIFY_PACKET_SIZE USB_FS_MAX_PACKET_SIZE
+#define ECM_MAX_USB_NOTIFY_PACKET_SIZE 16
 #define ECM_MAX_SEGMENT_SIZE           1514
 
 struct ecm_interface
@@ -41,7 +41,8 @@ struct ecm_interface
   struct cdc_union_functional_descriptor  cdc_ecm_union;
   struct cdc_enet_functional_descriptor   cdc_ecm_functional;
   struct endpoint_descriptor              ctl_ep;
-  struct interface_descriptor             dat_interface;
+  struct interface_descriptor             dat0_interface;
+  struct interface_descriptor             dat1_interface;
   struct endpoint_descriptor              ep_in;
   struct endpoint_descriptor              ep_out;
 };
@@ -102,12 +103,25 @@ struct ecm_interface
         .bInterval          = 0xFF,                                            \
       }, \
  \
-      .dat_interface = { \
+      .dat0_interface = { \
         /*Data class interface descriptor*/ \
         .bLength            = sizeof(struct interface_descriptor),             /* Endpoint Descriptor size */ \
         .bDescriptorType    = USB_INTERFACE_DESCRIPTOR,                        \
         .bInterfaceNumber   = DATA_ITF,                                        /* Number of Interface */ \
         .bAlternateSetting  = 0x00,                                            /* Alternate setting */ \
+        .bNumEndpoints      = 0x00,                                            /* no endpoints used */ \
+        .bInterfaceClass    = 0x0A,                                            /* CDC */ \
+        .bInterfaceSubclass = 0x00,                                            \
+        .bInterfaceProtocol = 0x00,                                            \
+        .iInterface         = 0x00,                                            \
+      }, \
+ \
+      .dat1_interface = { \
+        /*Data class interface descriptor*/ \
+        .bLength            = sizeof(struct interface_descriptor),             /* Endpoint Descriptor size */ \
+        .bDescriptorType    = USB_INTERFACE_DESCRIPTOR,                        \
+        .bInterfaceNumber   = DATA_ITF,                                        /* Number of Interface */ \
+        .bAlternateSetting  = 0x01,                                            /* Alternate setting */ \
         .bNumEndpoints      = 0x02,                                            /* Two endpoints used */ \
         .bInterfaceClass    = 0x0A,                                            /* CDC */ \
         .bInterfaceSubclass = 0x00,                                            \

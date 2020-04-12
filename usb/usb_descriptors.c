@@ -60,7 +60,7 @@ const alignas(4) usb_configuration_hierarchy_t usb_configuration_hierarchy =
     .bMaxPower           = 50, // 100 mA
   },
 
-  ECM_DESCRIPTOR(/* Notify ITF */ 0x00, /* Data ITF */ 0x01, /* Notify EP */ USB_IN_ENDPOINT | USB_ECM_EP_COMM, /* DataOut EP */ USB_OUT_ENDPOINT | USB_ECM_EP_RECV, /* DataIn EP */ USB_IN_ENDPOINT | USB_ECM_EP_SEND, /* iMACstring */ USB_STR_SERIAL_NUMBER)
+  ECM_DESCRIPTOR(USB_ECM_NOTIFY_ITF, USB_ECM_DATA_ITF, /* Notify EP */ USB_IN_ENDPOINT | USB_ECM_EP_COMM, /* DataOut EP */ USB_OUT_ENDPOINT | USB_ECM_EP_RECV, /* DataIn EP */ USB_IN_ENDPOINT | USB_ECM_EP_SEND, /* iMACstring */ USB_STR_SERIAL_NUMBER)
 };
 
 const alignas(4) usb_string_descriptor_zero_t usb_string_descriptor_zero =

@@ -291,7 +291,7 @@ static const tCGI cgi_uri_table[] =
 
 static u16_t ssi_handler(int index, char *insert, int ins_len)
 {
-    int res;
+    int res = 0;
 
     if (ins_len < 32) return 0;
 

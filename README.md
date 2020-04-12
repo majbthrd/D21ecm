@@ -5,13 +5,13 @@ Inspired by [lrndis](https://github.com/fetisov/lrndis), this is a CDC-ECM imple
 
 As with [lrndis](https://github.com/fetisov/lrndis), [lwIP](https://savannah.nongnu.org/projects/lwip/) is utilized to provide a rudimentary TCP/IP stack, DHCP server, and web server. 
 
-This is closely related to [D21rndis](https://github.com/majbthrd/D21rndis/), a RNDIS implementation, and [D21eem](https://github.com/majbthrd/D21eem/), a CDC-EEM implementation.  All implementations share most of the same code, differing only in the driver. with which it shares most of the same code.
+This is closely related to [D21rndis](https://github.com/majbthrd/D21rndis/), a RNDIS implementation, and [D21eem](https://github.com/majbthrd/D21eem/), a CDC-EEM implementation.  All implementations share most of the same code, differing only in the driver.
+
+Note that this project was tested with both Linux and macOS (High Sierra 10.13.16).
 
 ## Alternatives
 
-Note that this project functions with both Linux and Mac OS X Lion 10.7.5 hosts, but not with Mac OS X El Capitan 10.11.6 nor macOS High Sierra 10.13.16.
-
-If Mac compatibility is important, please look at [TinyUSB](https://github.com/hathach/tinyusb).  I am contributing code to [TinyUSB](https://github.com/hathach/tinyusb) that supercedes D21ecm, and [TinyUSB](https://github.com/hathach/tinyusb) has the added benefit of supporting multiple processors and being build-able with only open source tools.
+I have been making pull requests to [TinyUSB](https://github.com/hathach/tinyusb) to provide similar or greater capabilities.  I am hoping this will be a worthwhile expenditure of effort, as [TinyUSB](https://github.com/hathach/tinyusb) would have the added benefit of supporting multiple processors and being build-able with only open source tools.
 
 ## Usage
 

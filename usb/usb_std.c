@@ -69,6 +69,7 @@ WEAK bool usb_class_handle_request(usb_request_t *request)
 bool usb_handle_standard_request(usb_request_t *request)
 {
   static int usb_config = 0;
+  static int usb_interface = 0;
 
   switch ((request->bRequest << 8) | request->bmRequestType)
   {
@@ -159,7 +160,7 @@ bool usb_handle_standard_request(usb_request_t *request)
       }
     } break;
 
-    case USB_CMD(IN, DEVICE, STANDARD, GET_CONFIGURATION):
+    case USB_CMD(IN, INTERFACE, STANDARD, GET_CONFIGURATION):
     {
       uint8_t config = usb_config;
       usb_control_send(&config, sizeof(config));
@@ -170,6 +171,21 @@ bool usb_handle_standard_request(usb_request_t *request)
     {
       uint16_t status = 0;
       usb_control_send((uint8_t *)&status, sizeof(status));
+    } break;
+
+    case USB_CMD(OUT, INTERFACE, STANDARD, SET_INTERFACE):
+    {
+      usb_interface = request->wValue;
+
+      usb_control_send_zlp();
+
+      usb_interface_callback(usb_interface);
+    } break;
+
+    case USB_CMD(IN, DEVICE, STANDARD, GET_INTERFACE):
+    {
+      uint8_t interface = usb_interface;
+      usb_control_send(&interface, sizeof(interface));
     } break;
 
     case USB_CMD(IN, ENDPOINT, STANDARD, GET_STATUS):
