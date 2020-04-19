@@ -7,7 +7,7 @@ As with [lrndis](https://github.com/fetisov/lrndis), [lwIP](https://savannah.non
 
 This is closely related to [D21rndis](https://github.com/majbthrd/D21rndis/), a RNDIS implementation, and [D21eem](https://github.com/majbthrd/D21eem/), a CDC-EEM implementation.  All implementations share most of the same code, differing only in the driver.
 
-Note that this project was tested with both Linux and macOS (High Sierra 10.13.16).
+Note that this project was tested with Linux, macOS (High Sierra 10.13.16), and some smartphones (Moto E 2nd Gen and Moto G 1st Gen).
 
 ## Alternatives
 

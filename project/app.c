@@ -163,14 +163,20 @@ static void device_init(void)
   sn ^= *(volatile uint32_t *)0x0080a044;
   sn ^= *(volatile uint32_t *)0x0080a048;
 
-  /* the SN doubles as the MAC address; using this prefix indicates a locally-administered MAC address */
-  usb_serial_number[0] = '0';
-  usb_serial_number[1] = '2';
-  usb_serial_number[2] = '0';
-  usb_serial_number[3] = '2';
+  /*
+  The string used as SN also doubles as the CDC-ECM MAC address.
+  In a perfect world, we should use "02" as the first byte of a MAC to indicate a Locally-Administered Address.
+  However, some smartphones have been under-developed and can't handle this; they will only work when LAA is unset.
+  */
+  usb_serial_number[0] = 'F';
+  usb_serial_number[1] = 'C';
+  usb_serial_number[2] = 'F';
+  usb_serial_number[3] = 'F';
+  usb_serial_number[4] = 'F';
+  usb_serial_number[5] = 'F';
 
-  for (int i = 0; i < 8; i++)
-    usb_serial_number[4 + i] = "0123456789ABCDEF"[(sn >> (i * 4)) & 0xf];
+  for (int i = 0; i < 6; i++)
+    usb_serial_number[6 + i] = "0123456789ABCDEF"[(sn >> (i * 4)) & 0xf];
 
   usb_serial_number[12] = 0;
 
