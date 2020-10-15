@@ -53,9 +53,6 @@
         <configuration Name="Common" file_type="Reset Script" />
       </file>
     </folder>
-    <folder Name="Source Files">
-      <configuration Name="Common" filter="c;cpp;cxx;cc;h;s;asm;inc" />
-    </folder>
     <folder Name="System Files">
       <file file_name="$(StudioDir)/source/thumb_crt0.s" />
       <file file_name="$(TargetsDir)/SAM_D/Source/SAM_D_Startup.s" />
