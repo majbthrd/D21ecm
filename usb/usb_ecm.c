@@ -167,6 +167,7 @@ void usb_ecm_xmit_packet(struct pbuf *p)
     memcpy(data, (char *)q->payload, q->len);
     data += q->len;
     packet_size += q->len;
+    if (q->tot_len == q->len) break;
   }
 
   can_xmit = false;
